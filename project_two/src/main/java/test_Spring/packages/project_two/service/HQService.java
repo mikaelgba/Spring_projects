@@ -1,42 +1,47 @@
 package test_Spring.packages.project_two.service;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import test_Spring.packages.project_two.entites.HQ;
+import test_Spring.packages.project_two.mapper.HQMapper;
+import test_Spring.packages.project_two.repository.HQRepository;
+import test_Spring.packages.project_two.resquest.HQPostRequestBody;
+import test_Spring.packages.project_two.resquest.HQPutRequestBody;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.ThreadLocalRandom;
 
 @Service
+@RequiredArgsConstructor
 public class HQService {
 
-    private static List<HQ> Hqs;
-    static {
-       Hqs = new ArrayList<>(List.of(new HQ(1L,"Superman"), new HQ(2L,"X-men")));
-    }
+    private final HQRepository hqRepository;
 
-    public List<HQ> allHqs(){
-        return Hqs;
+    public List<HQ> allHQs(){
+        return hqRepository.findAll();
     }
-    public HQ findById(long id){
-        return Hqs.stream()
-                .filter(hq -> Objects.equals(hq.getId(), id))
-                .findFirst()
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                        "Hq id não encontrado!"));
+    public HQ findByIdHQOrException(long id) {
+        return hqRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST, "HQ com esse ID não foi encontrado"));
     }
-    public HQ save(HQ hq) {
-        hq.setId(ThreadLocalRandom.current().nextLong(3,1000));
-        Hqs.add(hq);
-        return hq;
+    public HQ save(HQPostRequestBody hqPostRequestBody) {
+        //return hqRepository.save(HQ.builder().name(hqPostRequestBody.getName()).build());
+        //usando o mapeamendo do MapStruct
+        return hqRepository.save(HQMapper.INSTANCE.toHQ(hqPostRequestBody));
+    }
+    public void update(HQPutRequestBody hqPutRequestBody){
+        HQ hqUpdate = findByIdHQOrException(hqPutRequestBody.getId());
+        //usando o mapeamendo do MapStruct
+        /*HQ hq = HQ.builder()
+                .id(hqUpdate.getId())
+                .name(hqUpdate.getName())
+                .build();*/
+        HQ hq = HQMapper.INSTANCE.toHQ(hqPutRequestBody);
+        hq.setId(hqUpdate.getId());
+        hqRepository.save(hq);
     }
     public void delete(long id) {
-        Hqs.remove(findById(id));
-    }
-    public void update(HQ hq) {
-        delete(hq.getId());
-        Hqs.add(hq);
+        hqRepository.delete(findByIdHQOrException(id));
     }
 }
