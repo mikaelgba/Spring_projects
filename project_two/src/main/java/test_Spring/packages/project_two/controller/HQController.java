@@ -10,6 +10,8 @@ import test_Spring.packages.project_two.resquest.HQPostRequestBody;
 import test_Spring.packages.project_two.resquest.HQPutRequestBody;
 import test_Spring.packages.project_two.service.HQService;
 import test_Spring.packages.project_two.util.DateUtil;
+
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -32,8 +34,13 @@ public class HQController {
         log.info(dataUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
         return new ResponseEntity<>(hqService.findByIdHQOrException(id), HttpStatus.OK);
     }
+    @GetMapping(path = "/find")
+    public ResponseEntity<List<HQ>> findByName(@RequestParam(required = false) String name){
+        log.info(dataUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
+        return new ResponseEntity<>(hqService.findByName(name), HttpStatus.OK);
+    }
     @PostMapping
-    public ResponseEntity<HQ> save(@RequestBody HQPostRequestBody hqPostRequestBody){
+    public ResponseEntity<HQ> save(@RequestBody @Valid HQPostRequestBody hqPostRequestBody){
         return new ResponseEntity<>(hqService.save(hqPostRequestBody), HttpStatus.CREATED);
     }
     @PutMapping
