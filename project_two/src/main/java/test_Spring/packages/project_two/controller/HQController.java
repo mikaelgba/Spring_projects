@@ -1,7 +1,8 @@
 package test_Spring.packages.project_two.controller;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +11,6 @@ import test_Spring.packages.project_two.resquest.HQPostRequestBody;
 import test_Spring.packages.project_two.resquest.HQPutRequestBody;
 import test_Spring.packages.project_two.service.HQService;
 import test_Spring.packages.project_two.util.DateUtil;
-
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,9 +25,9 @@ public class HQController {
     private final HQService hqService;
 
     @GetMapping
-    public ResponseEntity<List<HQ>> list(){
+    public ResponseEntity<Page<HQ>> list(Pageable pageable){
         log.info(dataUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
-        return new ResponseEntity<>(hqService.allHQs(), HttpStatus.OK);
+        return new ResponseEntity<>(hqService.allHQs(pageable), HttpStatus.OK);
     }
     @GetMapping(path = "/{id}")
     public ResponseEntity<HQ> findById(@PathVariable long id){

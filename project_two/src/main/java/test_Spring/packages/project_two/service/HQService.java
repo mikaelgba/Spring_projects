@@ -1,5 +1,7 @@
 package test_Spring.packages.project_two.service;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -20,8 +22,8 @@ public class HQService {
 
     private final HQRepository hqRepository;
 
-    public List<HQ> allHQs(){
-        return hqRepository.findAll();
+    public Page<HQ> allHQs(Pageable pageable){
+        return hqRepository.findAll(pageable);
     }
     public List<HQ> findByName(String name){
         return hqRepository.findByName(name);
