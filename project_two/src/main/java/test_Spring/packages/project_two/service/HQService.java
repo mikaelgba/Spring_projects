@@ -25,6 +25,9 @@ public class HQService {
     public Page<HQ> allHQs(Pageable pageable){
         return hqRepository.findAll(pageable);
     }
+    public List<HQ> allHQsNotPage() {
+        return hqRepository.findAll();
+    }
     public List<HQ> findByName(String name){
         return hqRepository.findByName(name);
     }

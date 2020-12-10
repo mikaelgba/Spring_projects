@@ -29,6 +29,11 @@ public class HQController {
         log.info(dataUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
         return new ResponseEntity<>(hqService.allHQs(pageable), HttpStatus.OK);
     }
+    @GetMapping(path = "/list")
+    public ResponseEntity<List<HQ>> listAll(){
+        log.info(dataUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
+        return new ResponseEntity<>(hqService.allHQsNotPage(), HttpStatus.OK);
+    }
     @GetMapping(path = "/{id}")
     public ResponseEntity<HQ> findById(@PathVariable long id){
         log.info(dataUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
