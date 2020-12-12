@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import test_Spring.packages.project_two.entites.HQ;
+import test_Spring.packages.project_two.util.HQCreator;
 import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
@@ -21,7 +22,7 @@ class HQRepositoryTest {
     @DisplayName("Teste para HQRespository - Salvar no banco")
     void test_save_persist_hq_when_successful(){
 
-        HQ hq = CreateHQ();
+        HQ hq = HQCreator.CreateHQ_Saved();
         HQ save_hq = this.hqRepository.save(hq);
 
         Assertions.assertThat(save_hq).isNotNull();
@@ -44,7 +45,7 @@ class HQRepositoryTest {
     @DisplayName("Teste para HQRespository - atualizar alguém no banco")
     void test_update_persist_hq_when_successful(){
 
-        HQ hq = CreateHQ();
+        HQ hq = HQCreator.CreateHQ_Saved();
         HQ save_hq = this.hqRepository.save(hq);
         save_hq.setName("League of Justice - War");
         HQ update_hq = this.hqRepository.save(save_hq);
@@ -57,7 +58,7 @@ class HQRepositoryTest {
     @DisplayName("Teste para HQRespository - deletar alguém no banco")
     void test_delete_persist_hq_when_successful(){
 
-        HQ hq = CreateHQ();
+        HQ hq = HQCreator.CreateHQ_Saved();
         HQ create_hq_for_delete = this.hqRepository.save(hq);
         this.hqRepository.delete(create_hq_for_delete);
 
@@ -68,7 +69,7 @@ class HQRepositoryTest {
     @DisplayName("Teste para HQRespository - encontrar alguém pelo nome no banco")
     void test_findById_hq_when_successful(){
 
-        HQ hq = CreateHQ();
+        HQ hq = HQCreator.CreateHQ_Saved();
         HQ create_hq = this.hqRepository.save(hq);
         String hq_name = create_hq.getName();
         List<HQ> hqs_for_name = this.hqRepository.findByName(hq_name);
@@ -81,10 +82,5 @@ class HQRepositoryTest {
 
         List<HQ> hqs_for_name = this.hqRepository.findByName("Marvel");
         Assertions.assertThat(hqs_for_name).isEmpty();
-    }
-    private HQ CreateHQ(){
-        return HQ.builder()
-                .name("Shazam")
-                .build();
     }
 }

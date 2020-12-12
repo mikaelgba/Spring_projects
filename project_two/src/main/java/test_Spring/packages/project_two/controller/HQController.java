@@ -21,27 +21,27 @@ import java.util.List;
 @RequiredArgsConstructor
 public class HQController {
 
-    private final DateUtil dataUtil;
+    //private final DateUtil dataUtil;
     private final HQService hqService;
 
     @GetMapping
     public ResponseEntity<Page<HQ>> list(Pageable pageable){
-        log.info(dataUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
+        //log.info(dataUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
         return new ResponseEntity<>(hqService.allHQs(pageable), HttpStatus.OK);
     }
     @GetMapping(path = "/list")
     public ResponseEntity<List<HQ>> listAll(){
-        log.info(dataUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
+        //log.info(dataUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
         return new ResponseEntity<>(hqService.allHQsNotPage(), HttpStatus.OK);
     }
     @GetMapping(path = "/{id}")
     public ResponseEntity<HQ> findById(@PathVariable long id){
-        log.info(dataUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
+        //log.info(dataUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
         return new ResponseEntity<>(hqService.findByIdHQOrException(id), HttpStatus.OK);
     }
     @GetMapping(path = "/find")
     public ResponseEntity<List<HQ>> findByName(@RequestParam(required = false) String name){
-        log.info(dataUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
+        //log.info(dataUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
         return new ResponseEntity<>(hqService.findByName(name), HttpStatus.OK);
     }
     @PostMapping
