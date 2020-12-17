@@ -59,6 +59,7 @@ public class HQService {
         //Então por momento vai ser com o Lombok mesmo
     }
     public void delete(long id) {
+        findByIdHQOrException(id);
         hqRepository.delete(findByIdHQOrException(id));
     }
 }
