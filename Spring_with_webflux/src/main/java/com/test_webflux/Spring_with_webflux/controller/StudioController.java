@@ -25,14 +25,21 @@ public class StudioController {
     }
     @GetMapping("/{id}")
     public Mono<ResponseEntity<Studio>> findById(@PathVariable String id){
-        return studioService.findById(id)
-                .map(studio -> ResponseEntity.ok(studio))
-                .defaultIfEmpty(ResponseEntity.notFound().build());
+        return studioService.findById(id);
     }
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Mono<Studio> save(@RequestBody Studio studio){
         return studioService.save(studio);
     }
+    @PutMapping("/{id}")
+    public Mono<ResponseEntity<Studio>> update(@PathVariable(value="id") String id,
+                                                @RequestBody Studio studio){
+        return studioService.update(id, studio);
 
+    }
+    @DeleteMapping("/{id}")
+    public Mono<ResponseEntity<Void>> delete(@PathVariable(value="id") String id){
+        return studioService.delete(id);
+    }
 }
