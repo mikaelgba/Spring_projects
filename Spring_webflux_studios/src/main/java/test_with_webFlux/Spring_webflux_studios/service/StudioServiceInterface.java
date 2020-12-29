@@ -6,8 +6,8 @@ import test_with_webFlux.Spring_webflux_studios.entity.Studio;
 public interface StudioServiceInterface {
 
     Flux<Studio> findAll();
-    Mono<Studio> findById(int id);;
+    Mono<Studio> findById(String id);
     Mono<Studio> save(Studio studio);
-    Mono<Studio> update();
-    Mono<Studio> delete();
+    Mono<Void> update(Studio studio);
+    Mono<Void> delete(String id);
 }

@@ -19,9 +19,9 @@ public class SpringWebfluxStudiosApplication {
 							StudioRepository repository){
 		return args -> {
 			Flux<Studio> studioFlux = Flux.just(
-					new Studio(null, "Warner Bros", "Hollywood, Los Angeles, Califórnia, EUA", 1923),
-					new Studio(null, "Paramount Pictures", "Hollywood, Los Angeles, Califórnia, EUA", 1912),
-					new Studio(null, "Sony Pictures Studios", "West Washington Boulevard, Culver City, CA.", 1989))
+					new Studio(null, "Warner Bros", "Hollywood, Los Angeles, Califórnia, EUA", "1923"),
+					new Studio(null, "Paramount Pictures", "Hollywood, Los Angeles, Califórnia, EUA", "1912"),
+					new Studio(null, "Sony Pictures Studios", "West Washington Boulevard, Culver City, CA.", "1989"))
 					.flatMap(repository::save);
 
 			studioFlux

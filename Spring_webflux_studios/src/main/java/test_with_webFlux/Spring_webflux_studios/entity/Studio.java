@@ -13,6 +13,7 @@ import javax.validation.constraints.NotNull;
 @Table("studio")
 public class Studio {
 
+    //Usando Id como String porque estou usando o mongoDb embarcado, como padrão o  id é alfanumerico
     @Id
     private String id;
     @NotNull
@@ -23,6 +24,5 @@ public class Studio {
     private String foundation_origin;
     @NotNull
     @NotEmpty(message = "Ano da fundação não pode ser vazio")
-    private int founded_in;
-
+    private String founded_in;
 }
