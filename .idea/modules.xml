@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/dio-tutorial-kafka.iml" filepath="$PROJECT_DIR$/.idea/dio-tutorial-kafka.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tutorial-microservice-kafka/tutorial-microservice-kafka/tutorial-microservice-kafka.iml" filepath="$PROJECT_DIR$/tutorial-microservice-kafka/tutorial-microservice-kafka/tutorial-microservice-kafka.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tutorial-rest-kafka/tutorial-rest-kafka.iml" filepath="$PROJECT_DIR$/tutorial-rest-kafka/tutorial-rest-kafka.iml" />
+    </modules>
+  </component>
+</project>
